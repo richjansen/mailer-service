@@ -10,9 +10,9 @@ Microservice (Laravel) for sending mails
 4. Job
 5. Queue
 6. Logging database
-7. API Endpoint (JSON-RPC?)
+7. API Endpoint (JSON-RPC?). Use Postman
 8. UnitTest
-9. Swiftmailer 
+9. Swiftmailer
 
 Api hit triggers event. 
 Listener calls the Mailer service.
@@ -23,6 +23,4 @@ Callback for status logging in database
 
 ## Bonus
 
-Client app:
-1. First Postman
-2. Then a new Vue app (new repos)
+1. Client Vue app (new repos)
