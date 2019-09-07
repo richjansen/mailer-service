@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
 use App\Services\SendMailer\SendMailerService;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,9 @@ class SendMailController extends Controller
         $config     = config('sendmailer.apis');
         $mailApi    = $config['mailjet']['client']::create($config['mailjet']);
 
-        $sendMailerService->sendTestMail($mailApi);
+        SendEmailJob
+            ::dispatch($mailApi)
+            ->delay(now()->addSeconds(10));
 
         return response()->json(
             ['success' => true]
