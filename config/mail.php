@@ -2,6 +2,14 @@
 
 return [
 
+    /**
+     * From
+     */
+    'from' => [
+        'address'   => 'example@example.com',
+        'name'      => 'Learning Heroes',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Mail Driver
