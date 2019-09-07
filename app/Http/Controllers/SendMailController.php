@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\SendMailerService;
+use App\Services\SendMailer\SendMailerService;
 use Illuminate\Http\Request;
 
 /**
@@ -18,7 +18,10 @@ class SendMailController extends Controller
      */
     public function __invoke(Request $request, SendMailerService $sendMailerService)
     {
-        $sendMailerService->sendTestMail();
+        $config     = config('sendmailer.apis');
+        $mailApi    = $config['mailjet']['client']::create($config['mailjet']);
+
+        $sendMailerService->sendTestMail($mailApi);
 
         return response()->json(
             ['success' => true]

@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\MailApis\Mailjet;
 use Illuminate\Support\ServiceProvider;
-use App\Services\SendMailerService;
+use App\Services\SendMailer\SendMailerService;
 
 class SendMailerProvider extends ServiceProvider
 {

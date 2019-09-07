@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
+        "mailjet/mailjet-apiv3-php": "^1.4",
         "swiftmailer/swiftmailer": "^6.0"
     },
     "require-dev": {
