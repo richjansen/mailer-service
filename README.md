@@ -4,6 +4,7 @@ Microservice (Laravel) for sending mails
 
 ## Mailer API
 
+1. Init Docker
 1. Install a fresh Laravel app
 2. Register to 2 mailer services (Mailjet and Sendgrid)
 3. Register to Mailcatcher

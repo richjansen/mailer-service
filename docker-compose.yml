@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+    web:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/srv/app
+        working_dir: /srv/app
+        ports:
+            - '8080:80'
+        environment:
+            - "DB_PORT=3306"
+            - "DB_HOST=database"
+        links:
+            - database
+
+    database:
+        image: mysql:5.7
+        environment:
+            - 'MYSQL_ROOT_USER=root'
+            - 'MYSQL_ROOT_PASSWORD=root'
+            - 'MYSQL_DATABASE=mailerservice'
+        ports:
+            - '33061:3306'
+        expose:
+            - '33061'
+        volumes:
+            - /home/samen/mysqldata:/var/lib/mysql
+#           MySql Workbench:
+#           Hostname: 127.0.0.1
+#           Port: 33601
+
+    composer:
+        image: composer:latest
+        volumes:
+            - ./:/app
+        command: install
+
+volumes:
+    dbdata:
