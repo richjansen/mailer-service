@@ -19,11 +19,10 @@ class SendMailerService
     private $mailApis = [];
 
     /**
-     * @param MailApiInterface|null $mailApi
-     * @param int $apiIndex
+     * @param int|null $apiIndex
      * @return mixed
      */
-    public function sendTestMail(?MailApiInterface $mailApi = null, int $apiIndex = 0)
+    public function sendTestMail(?int $apiIndex = 0)
     {
         $body = view('emails.test', ['name' => "Testje"])->toHtml();
 
@@ -31,7 +30,7 @@ class SendMailerService
             $mailApi = $this->getMailApi($apiIndex);
             $response = $mailApi->send($body);
         } catch (ServiceOfflineException $e) {
-            return $this->sendTestMail(null, ++$apiIndex);
+            return $this->sendTestMail(++$apiIndex);
         }
 
         event(new MailSendEvent($response));
@@ -41,7 +40,7 @@ class SendMailerService
      * @param MailApiInterface $mailApi
      * @return $this
      */
-    public function addApi(MailApiInterface $mailApi)
+    public function addApi(MailApiInterface $mailApi): SendMailerService
     {
         // @todo Make sure there are no duplicate apis
         $this->mailApis[] = $mailApi;
@@ -53,9 +52,8 @@ class SendMailerService
      * @param int $key
      * @return mixed
      */
-    private function getMailApi(int $key = 0)
+    private function getMailApi(int $key = 0): MailApiInterface
     {
-
         return $this->mailApis[$key];
     }
 }

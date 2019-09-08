@@ -7,8 +7,8 @@ return [
         'mailjet' => [
             'client'    => MailjetApi::class,
             'args' => [
-                'key'       => '2148b792ebc2bc76aa4d9cbac7eac876',
-                'secret'    => 'a112ac86b57e2293ba45ada99498106f',
+                'key'       => env('MAILJET_KEY'),
+                'secret'    => env('MAILJET_SECRET'),
                 'settings'  => ['version' => 'v3.1'],
             ],
         ],
@@ -20,8 +20,9 @@ return [
         ],
     ],
     'mail-settings' => [
-        'from' => config('mail.from'),
-        'subject'   => "Dit is een testmailtje",
+        'from'          => env('MAIL_FROM_ADDRESS'),
+        'name'          => env('MAIL_FROM_NAME'),
+        'subject'       => "Dit is een testmailtje",
         'content-type'  => 'text/html',
     ]
 ];

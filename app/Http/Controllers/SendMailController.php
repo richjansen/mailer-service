@@ -19,21 +19,10 @@ class SendMailController extends Controller
      */
     public function __invoke(SendMailerService $sendMailerService, ?string $service = null)
     {
-        if ($service) {
-            $config     = config('sendmailer.apis')[$service];
-            $mailApi    = resolve($config['client']);
-        } else {
-            $mailApi = null;
-        }
-
         //        SendEmailJob
 //            ::dispatch($mailApi)
 //            ->delay(now()->addSeconds(10))
 //        ;
-        $sendMailerService->sendTestMail($mailApi);
-
-        return response()->json(
-            ['success' => true]
-        );
+        $sendMailerService->sendTestMail();
     }
 }

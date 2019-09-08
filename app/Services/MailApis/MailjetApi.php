@@ -61,17 +61,17 @@ class MailjetApi implements MailApiInterface
                 [
                     'From' => [
                         'Email' => config('mail.from.address'),
-                        'Name' =>  config('mail.from.name'),
+                        'Name'  =>  config('mail.from.name'),
                     ],
                     'To' => [
                         [
-                            'Email' => "richard.chantal@gmail.com",
-                            'Name' => "Richard"
+                            'Email' => env('TEST_EMAIL'),
+                            'Name'  => "Test User",
                         ]
                     ],
-                    'Subject' => "Greetings from Mailjet.",
+                    'Subject'  => "Greetings from Mailjet.",
                     'TextPart' => "My first Mailjet email",
-                    'HTMLPart'  => $htmlBody . " Mailjet",
+                    'HTMLPart' => $htmlBody . " Mailjet",
                     'CustomID' => "AppGettingStartedTest"
                 ]
             ]

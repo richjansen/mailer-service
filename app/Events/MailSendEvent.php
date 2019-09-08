@@ -19,7 +19,7 @@ class MailSendEvent
      * MailSendEvent constructor.
      * @param Response $response
      */
-    public function __construct(Response $response)
+    public function __construct($response)
     {
         $this->response = $response;
     }
@@ -27,7 +27,7 @@ class MailSendEvent
     /**
      * @return Response
      */
-    public function getResponse(): Response
+    public function getResponse()
     {
         return $this->response;
     }

@@ -40,6 +40,7 @@ class SendGridApi implements MailApiInterface
      * @see https://app.sendgrid.com/guide/integrate/langs/php
      * @param $htmlBody
      * @throws SendGrid\Mail\TypeException
+     * @throws ServiceOfflineException
      */
     public function send($htmlBody)
     {
@@ -53,6 +54,7 @@ class SendGridApi implements MailApiInterface
 //            print $response->statusCode() . "\n";
 //            print_r($response->headers());
 //            print $response->body() . "\n";
+            return $response;
         } catch (Exception $e) {
             throw new ServiceOfflineException($e);
         }
@@ -66,11 +68,11 @@ class SendGridApi implements MailApiInterface
     private function createMail($htmlBody)
     {
         $email = new Mail();
-        $email->setFrom($this->mailSettings['from']['address'], $this->mailSettings['from']['name']);
-        $email->setSubject($this->mailSettings['subject']);
-        $email->addTo("richard.chantal@gmail.com", "Example User");
+
+        $email->setFrom($this->mailSettings['from'], $this->mailSettings['name']);
+        $email->setSubject($this->mailSettings['subject'] . " SendGrid");
+        $email->addTo(env('TEST_EMAIL'), "Example User");
         $email->addContent($this->mailSettings['content-type'], $htmlBody);
-        $email->addContent($this->mailSettings['content-type'], " SendGrid");
 
         return $email;
     }

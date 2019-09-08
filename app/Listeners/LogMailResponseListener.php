@@ -15,6 +15,8 @@ class LogMailResponseListener
      */
     public function handle(MailSendEvent $event)
     {
-//        dd($event);
+//        dd($event->getResponse());
+
+        echo("convert Sendgrid and Mailjet responses to a generic class for the listener");
     }
 }
