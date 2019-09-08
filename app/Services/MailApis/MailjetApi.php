@@ -3,6 +3,7 @@
 namespace App\Services\MailApis;
 
 use App\Contracts\MailApiInterface;
+use App\Exceptions\ServiceOfflineException;
 use Mailjet\{
     Resources,
     Client,
@@ -34,11 +35,17 @@ class MailjetApi implements MailApiInterface
     /**
      * @param $htmlBody
      * @return Response
+     * @throws ServiceOfflineException
      */
     public function send($htmlBody)
     {
-        $args       = ['body' => $this->createMail($htmlBody)];
-        $response   = $this->mailClient->post(Resources::$Email, $args);
+        $args = ['body' => $this->createMail($htmlBody)];
+
+        try {
+            $response = $this->mailClient->post(Resources::$Email, $args);
+        } catch (\Exception $e) {
+            throw new ServiceOfflineException($e);
+        }
 
         return $response;
     }
@@ -64,7 +71,7 @@ class MailjetApi implements MailApiInterface
                     ],
                     'Subject' => "Greetings from Mailjet.",
                     'TextPart' => "My first Mailjet email",
-                    'HTMLPart'  => $htmlBody,
+                    'HTMLPart'  => $htmlBody . " Mailjet",
                     'CustomID' => "AppGettingStartedTest"
                 ]
             ]

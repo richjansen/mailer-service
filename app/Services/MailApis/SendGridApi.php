@@ -5,6 +5,8 @@ namespace App\Services\MailApis;
 use App\Contracts\MailApiInterface;
 use SendGrid\Mail\Mail;
 use SendGrid;
+use App\Exceptions\ServiceOfflineException;
+use Exception;
 
 /**
  * Class SendGridApi
@@ -35,22 +37,24 @@ class SendGridApi implements MailApiInterface
     }
 
     /**
+     * @see https://app.sendgrid.com/guide/integrate/langs/php
      * @param $htmlBody
      * @throws SendGrid\Mail\TypeException
      */
     public function send($htmlBody)
     {
-        // https://app.sendgrid.com/guide/integrate/langs/php
+        // test
+//        throw new ServiceOfflineException(new Exception('offline'));
+
         $email = $this->createMail($htmlBody);
 
         try {
             $response = $this->mailerService->send($email);
-
-            print $response->statusCode() . "\n";
-            print_r($response->headers());
-            print $response->body() . "\n";
+//            print $response->statusCode() . "\n";
+//            print_r($response->headers());
+//            print $response->body() . "\n";
         } catch (Exception $e) {
-            echo 'Caught exception: '. $e->getMessage() ."\n";
+            throw new ServiceOfflineException($e);
         }
     }
 
@@ -66,6 +70,7 @@ class SendGridApi implements MailApiInterface
         $email->setSubject($this->mailSettings['subject']);
         $email->addTo("richard.chantal@gmail.com", "Example User");
         $email->addContent($this->mailSettings['content-type'], $htmlBody);
+        $email->addContent($this->mailSettings['content-type'], " SendGrid");
 
         return $email;
     }

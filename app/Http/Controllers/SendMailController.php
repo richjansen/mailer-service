@@ -17,10 +17,14 @@ class SendMailController extends Controller
      * @param SendMailerService $sendMailerService
      * @return string
      */
-    public function __invoke(string $service, SendMailerService $sendMailerService)
+    public function __invoke(SendMailerService $sendMailerService, ?string $service = null)
     {
-        $config     = config('sendmailer.apis')[$service];
-        $mailApi    = resolve($config['client']);
+        if ($service) {
+            $config     = config('sendmailer.apis')[$service];
+            $mailApi    = resolve($config['client']);
+        } else {
+            $mailApi = null;
+        }
 
         //        SendEmailJob
 //            ::dispatch($mailApi)
