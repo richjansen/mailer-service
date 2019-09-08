@@ -13,48 +13,32 @@ use Mailjet\{
  * Class Mailjet
  * @package App\Services\MailApis
  */
-class Mailjet implements MailApiInterface
+class MailjetApi implements MailApiInterface
 {
 
     /**
-     * @var string
+     * @var Client
      */
-    private $key;
-
-    /**
-     * @var string
-     */
-    private $secret;
+    private $mailClient;
 
     /**
      * Mailjet constructor.
      * @param string $key
      * @param string $secret
      */
-    public function __construct(string $key, string $secret)
+    public function __construct(Client $mailClient)
     {
-        $this->key      = $key;
-        $this->secret   = $secret;
-    }
-
-    /**
-     * @param array $config
-     * @return Mailjet
-     */
-    public static function create(array $config): MailApiInterface
-    {
-        return new self($config['key'], $config['secret']);
+        $this->mailClient = $mailClient;
     }
 
     /**
      * @param $htmlBody
      * @return Response
      */
-    public function send($htmlBody): Response
+    public function send($htmlBody)
     {
-        $client     = new Client($this->key, $this->secret,true,['version' => 'v3.1']);
-        $args       = ['body' => $this->createBodyArray($htmlBody)];
-        $response   = $client->post(Resources::$Email, $args);
+        $args       = ['body' => $this->createMail($htmlBody)];
+        $response   = $this->mailClient->post(Resources::$Email, $args);
 
         return $response;
     }
@@ -63,7 +47,7 @@ class Mailjet implements MailApiInterface
      * @param string $htmlBody
      * @return array
      */
-    private function createBodyArray(string $htmlBody): array
+    private function createMail(string $htmlBody): array
     {
         return [
             'Messages' => [

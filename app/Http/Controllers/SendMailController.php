@@ -17,14 +17,16 @@ class SendMailController extends Controller
      * @param SendMailerService $sendMailerService
      * @return string
      */
-    public function __invoke(Request $request, SendMailerService $sendMailerService)
+    public function __invoke(string $service, SendMailerService $sendMailerService)
     {
-        $config     = config('sendmailer.apis');
-        $mailApi    = $config['mailjet']['client']::create($config['mailjet']);
+        $config     = config('sendmailer.apis')[$service];
+        $mailApi    = resolve($config['client']);
 
-        SendEmailJob
-            ::dispatch($mailApi)
-            ->delay(now()->addSeconds(10));
+        //        SendEmailJob
+//            ::dispatch($mailApi)
+//            ->delay(now()->addSeconds(10))
+//        ;
+        $sendMailerService->sendTestMail($mailApi);
 
         return response()->json(
             ['success' => true]

@@ -16,17 +16,10 @@ class SendMailerService
     /**
      * @return bool
      */
-    public function sendTestMail(MailApiInterface $mailApi): void
+    public function sendTestMail(MailApiInterface $mailApi)
     {
         $body = view('emails.test', ['name' => "Testje"])->toHtml();
 
-        $mailApi->send($body);
-
-//        var_dump($mailResponse->getData());exit;
-//        Mail
-//            ::to('richardjansen0408@gmail.com')
-//            ->send(new TestMail());
-
-//        return true;
+        return $mailApi->send($body);
     }
 }
