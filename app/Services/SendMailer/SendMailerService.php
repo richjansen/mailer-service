@@ -3,6 +3,7 @@
 namespace App\Services\SendMailer;
 
 use App\Contracts\MailApiInterface;
+use App\Events\MailSendEvent;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestMail;
 
@@ -14,12 +15,14 @@ class SendMailerService
 {
 
     /**
-     * @return bool
+     * @param MailApiInterface $mailApi
      */
     public function sendTestMail(MailApiInterface $mailApi)
     {
         $body = view('emails.test', ['name' => "Testje"])->toHtml();
 
-        return $mailApi->send($body);
+        $response = $mailApi->send($body);
+
+        event(new MailSendEvent($response));
     }
 }

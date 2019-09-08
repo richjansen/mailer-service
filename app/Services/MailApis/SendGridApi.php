@@ -30,8 +30,8 @@ class SendGridApi implements MailApiInterface
      */
     public function __construct(array $mailSettings, SendGrid $sendGrid)
     {
-        $this->mailSettings = $mailSettings;
-        $this->mailerService    =   $sendGrid;
+        $this->mailSettings     = $mailSettings;
+        $this->mailerService    = $sendGrid;
     }
 
     /**
