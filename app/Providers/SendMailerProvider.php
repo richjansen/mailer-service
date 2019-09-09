@@ -26,7 +26,6 @@ class SendMailerProvider extends ServiceProvider
 
         $this->app->singleton(SendGridApi::class, function ($app) {
             return new SendGridApi(
-                config('sendmailer')['mail-settings'],
                 $app->get(SendGrid::class)
             );
         });
@@ -45,10 +44,10 @@ class SendMailerProvider extends ServiceProvider
 
         // SendMailerService
         $this->app->singleton(SendMailerService::class, function ($app) {
-            $sendMailerService = new SendMailerService();
+            $sendMailerService = new SendMailerService(config('sendmailer')['mail-settings']);
             $sendMailerService
                 ->addApi($app->get(SendGridApi::class)) // primary api
-                ->addApi($app->get(MailjetApi::class)) // fallback api
+                ->addApi($app->get(MailjetApi::class))  // fallback api
             ;
             return $sendMailerService;
         });

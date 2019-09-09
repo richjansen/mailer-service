@@ -12,11 +12,24 @@ use App\Exceptions\ServiceOfflineException;
  */
 class SendMailerService
 {
+    /**
+     * @var array
+     */
+    private $mailSettings;
 
     /**
      * @var array
      */
     private $mailApis = [];
+
+    /**
+     * SendMailerService constructor.
+     * @param array $mailSettings
+     */
+    public function __construct(array $mailSettings)
+    {
+        $this->mailSettings = $mailSettings;
+    }
 
     /**
      * @param int|null $apiIndex
@@ -42,6 +55,8 @@ class SendMailerService
      */
     public function addApi(MailApiInterface $mailApi): SendMailerService
     {
+        $mailApi->setMailSettings($this->mailSettings);
+
         // @todo Make sure there are no duplicate apis
         $this->mailApis[] = $mailApi;
 

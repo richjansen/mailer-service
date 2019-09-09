@@ -9,23 +9,17 @@ use Mailjet\{
     Client,
     Response
 };
+use Exception;
 
 /**
  * Class Mailjet
  * @package App\Services\MailApis
  */
-class MailjetApi implements MailApiInterface
+class MailjetApi extends ApiAbstract implements MailApiInterface
 {
-
     /**
-     * @var Client
-     */
-    private $mailClient;
-
-    /**
-     * Mailjet constructor.
-     * @param string $key
-     * @param string $secret
+     * MailjetApi constructor.
+     * @param Client $mailClient
      */
     public function __construct(Client $mailClient)
     {
@@ -42,19 +36,17 @@ class MailjetApi implements MailApiInterface
         $args = ['body' => $this->createMail($htmlBody)];
 
         try {
-            $response = $this->mailClient->post(Resources::$Email, $args);
-        } catch (\Exception $e) {
+            return $this->mailClient->post(Resources::$Email, $args);
+        } catch (Exception $e) {
             throw new ServiceOfflineException($e);
         }
-
-        return $response;
     }
 
     /**
      * @param string $htmlBody
      * @return array
      */
-    private function createMail(string $htmlBody): array
+    protected function createMail(string $htmlBody): array
     {
         return [
             'Messages' => [

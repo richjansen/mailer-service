@@ -12,5 +12,5 @@ interface MailApiInterface
      * @param array $config
      * @return MailApiInterface
      */
-//    public static function create(array $config): MailApiInterface;
+//    public static function createMail(array $config): MailApiInterface;
 }
