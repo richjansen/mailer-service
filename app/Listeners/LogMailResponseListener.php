@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\MailSendEvent;
+use App\Services\SendMailer\HandleResponseService;
 
 /**
  * Class LogMailResponseListener
@@ -10,13 +11,20 @@ use App\Events\MailSendEvent;
  */
 class LogMailResponseListener
 {
+    private $handleResponseService;
+
+    public function __construct(HandleResponseService $handleResponseService)
+    {
+        $this->handleResponseService = $handleResponseService;
+    }
+
     /**
      * @param MailSendEvent $event
      */
     public function handle(MailSendEvent $event)
     {
-        dd($event->getResponse());
+        $this->handleResponseService->handleResponse($event->getResponse());
 
-        echo("convert Sendgrid and Mailjet responses to a generic class for the listener");
+//        echo("convert Sendgrid and Mailjet responses to a generic class for the listener");
     }
 }

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\MailApis\Mailjet;
 use App\Services\MailApis\MailjetApi;
 use App\Services\MailApis\SendGridApi;
+use App\Services\SendMailer\HandleResponseService;
 use Mailjet\Client as MailjetClient;
 use SendGrid;
 use Illuminate\Support\ServiceProvider;
@@ -50,6 +51,16 @@ class SendMailerProvider extends ServiceProvider
                 ->addApi($app->get(MailjetApi::class))  // fallback api
             ;
             return $sendMailerService;
+        });
+
+        // HandleResponseService
+        $this->app->singleton(HandleResponseService::class, function ($app) {
+            $handleResponseService = new HandleResponseService(config('sendmailer')['mail-settings']);
+//            $handleResponseService
+//                ->addApi($app->get(SendGridApi::class)) // primary api
+//                ->addApi($app->get(MailjetApi::class))  // fallback api
+//            ;
+            return $handleResponseService;
         });
     }
 
