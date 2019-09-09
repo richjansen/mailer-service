@@ -9,8 +9,8 @@ namespace App\Contracts;
 interface MailApiInterface
 {
     /**
-     * @param array $config
-     * @return MailApiInterface
+     * @param $response
+     * @return mixed
      */
-//    public static function createMail(array $config): MailApiInterface;
+    public function handleResponse($response);
 }

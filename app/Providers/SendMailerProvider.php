@@ -56,10 +56,6 @@ class SendMailerProvider extends ServiceProvider
         // HandleResponseService
         $this->app->singleton(HandleResponseService::class, function ($app) {
             $handleResponseService = new HandleResponseService(config('sendmailer')['mail-settings']);
-//            $handleResponseService
-//                ->addApi($app->get(SendGridApi::class)) // primary api
-//                ->addApi($app->get(MailjetApi::class))  // fallback api
-//            ;
             return $handleResponseService;
         });
     }

@@ -17,6 +17,4 @@ trait MailSettingsTrait
     {
         $this->mailSettings = $mailSettings;
     }
-
-
 }

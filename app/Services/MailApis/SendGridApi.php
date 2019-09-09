@@ -60,4 +60,12 @@ class SendGridApi extends ApiAbstract implements MailApiInterface
             throw new ServiceOfflineException($e);
         }
     }
+
+    /**
+     * @param $response
+     */
+    public function handleResponse($response)
+    {
+        dd("SendGrid handle response");
+    }
 }

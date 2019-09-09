@@ -2,13 +2,16 @@
 
 namespace App\Events;
 
+use App\Contracts\ApiResponseAwareInterface;
+use App\Contracts\MailApiInterface;
+use App\Services\MailApis\ApiAbstract;
 use Mailjet\Response;
 
 /**
  * Class MailSendEvent
  * @package App\Events
  */
-class MailSendEvent
+class MailSendEvent implements ApiResponseAwareInterface
 {
     /**
      * @var Response
@@ -16,12 +19,19 @@ class MailSendEvent
     private $response;
 
     /**
-     * MailSendEvent constructor.
-     * @param Response $response
+     * @var ApiAbstract
      */
-    public function __construct($response)
+    private $mailApi;
+
+    /**
+     * MailSendEvent constructor.
+     * @param $response
+     * @param ApiAbstract $mailApi
+     */
+    public function __construct($response, ApiAbstract $mailApi)
     {
         $this->response = $response;
+        $this->mailApi  = $mailApi;
     }
 
     /**
@@ -30,5 +40,13 @@ class MailSendEvent
     public function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * @return ApiAbstract
+     */
+    public function getMailApi(): ApiAbstract
+    {
+        return $this->mailApi;
     }
 }

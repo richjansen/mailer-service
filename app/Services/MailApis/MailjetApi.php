@@ -69,4 +69,12 @@ class MailjetApi extends ApiAbstract implements MailApiInterface
             ]
         ];
     }
+
+    /**
+     * @param $response
+     */
+    public function handleResponse($response)
+    {
+        dd("Mailjet handle response");
+    }
 }

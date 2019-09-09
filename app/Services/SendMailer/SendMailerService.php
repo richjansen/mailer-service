@@ -5,6 +5,7 @@ namespace App\Services\SendMailer;
 use App\Contracts\MailApiInterface;
 use App\Events\MailSendEvent;
 use App\Exceptions\ServiceOfflineException;
+use App\Traits\MailApisTrait;
 use App\Traits\MailSettingsTrait;
 
 /**
@@ -15,10 +16,7 @@ class SendMailerService
 {
     use MailSettingsTrait;
 
-    /**
-     * @var array
-     */
-    private $mailApis = [];
+    use MailApisTrait;
 
     /**
      * @param int|null $apiIndex
@@ -35,21 +33,7 @@ class SendMailerService
             return $this->sendTestMail(++$apiIndex);
         }
 
-        event(new MailSendEvent($response));
-    }
-
-    /**
-     * @param MailApiInterface $mailApi
-     * @return $this
-     */
-    public function addApi(MailApiInterface $mailApi): SendMailerService
-    {
-        $mailApi->setMailSettings($this->mailSettings);
-
-        // @todo Make sure there are no duplicate apis
-        $this->mailApis[] = $mailApi;
-
-        return $this;
+        event(new MailSendEvent($response, $mailApi));
     }
 
     /**
@@ -59,10 +43,5 @@ class SendMailerService
     private function getMailApi(int $key = 0): MailApiInterface
     {
         return $this->mailApis[$key];
-    }
-
-    public function handleResponse($response)
-    {
-        dd($response);
     }
 }

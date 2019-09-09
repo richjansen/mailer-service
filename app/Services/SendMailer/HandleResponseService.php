@@ -2,14 +2,22 @@
 
 namespace App\Services\SendMailer;
 
+use App\Contracts\ApiResponseAwareInterface;
 use App\Traits\MailSettingsTrait;
 
+/**
+ * Class HandleResponseService
+ * @package App\Services\SendMailer
+ */
 class HandleResponseService
 {
     use MailSettingsTrait;
 
-    public function handleResponse($response)
+    /**
+     * @param ApiResponseAwareInterface $apiResponse
+     */
+    public function handleResponse(ApiResponseAwareInterface $apiResponse)
     {
-        dd($response);
+        $apiResponse->getMailApi()->handleResponse($apiResponse->getResponse());
     }
 }
