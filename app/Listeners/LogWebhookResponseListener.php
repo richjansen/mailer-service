@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Contracts\ApiResponseAwareInterface;
+use App\Contracts\MailClientResponseAwareInterface;
 use App\Events\WebhookMailjetEvent;
 use App\Services\SendMailer\HandleResponseService;
 
@@ -10,7 +10,7 @@ use App\Services\SendMailer\HandleResponseService;
  * Class LogMailResponseListener
  * @package App\Listeners
  */
-class LogMailResponseListener
+class LogWebhookResponseListener
 {
     /**
      * @var HandleResponseService
@@ -27,7 +27,7 @@ class LogMailResponseListener
     }
 
     /**
-     * @param ApiResponseAwareInterface $event
+     * @param MailClientResponseAwareInterface $event
      */
     public function handle(WebhookMailjetEvent $event)
     {

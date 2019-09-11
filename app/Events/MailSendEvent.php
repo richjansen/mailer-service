@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Contracts\ApiResponseAwareInterface;
+use App\Contracts\MailClientResponseAwareInterface;
 use App\Services\MailApis\ApiAbstract;
 use Mailjet\Response;
 
@@ -10,7 +10,7 @@ use Mailjet\Response;
  * Class MailSendEvent
  * @package App\Events
  */
-class MailSendEvent implements ApiResponseAwareInterface
+class MailSendEvent implements MailClientResponseAwareInterface
 {
     /**
      * @var Response

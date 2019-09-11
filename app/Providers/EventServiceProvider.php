@@ -18,9 +18,9 @@ class EventServiceProvider extends ServiceProvider
         MailSendEvent::class => [
             LogMailResponseListener::class,
         ],
-        WebhookMailjetEvent::class => [
-
-        ]
+//        WebhookMailjetEvent::class => [
+//
+//        ]
     ];
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Contracts\ApiResponseAwareInterface;
+use App\Contracts\MailClientResponseAwareInterface;
 use App\Services\SendMailer\HandleResponseService;
 
 /**
@@ -26,9 +26,9 @@ class LogMailResponseListener
     }
 
     /**
-     * @param ApiResponseAwareInterface $event
+     * @param MailClientResponseAwareInterface $event
      */
-    public function handle(ApiResponseAwareInterface $event)
+    public function handle(MailClientResponseAwareInterface $event)
     {
         $this->handleResponseService->handleResponse($event);
     }

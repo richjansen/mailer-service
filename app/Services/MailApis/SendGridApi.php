@@ -66,6 +66,7 @@ class SendGridApi extends ApiAbstract implements ClientResponseInterface
      */
     public function handleClientResponse($response)
     {
+        dd($response);
         dd("SendGrid handle response");
     }
 }
