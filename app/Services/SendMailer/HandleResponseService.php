@@ -2,8 +2,9 @@
 
 namespace App\Services\SendMailer;
 
-use App\Contracts\ApiResponseAwareInterface;
+use App\Contracts\MailClientResponseAwareInterface;
 use App\Traits\MailSettingsTrait;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
@@ -15,20 +16,23 @@ class HandleResponseService
     use MailSettingsTrait;
 
     /**
-     * @param ApiResponseAwareInterface $apiResponse
+     * @param MailClientResponseAwareInterface $mailClientResponseAware
      */
-    public function handleResponse(ApiResponseAwareInterface $apiResponseAware)
+    public function handleResponse(MailClientResponseAwareInterface $mailClientResponseAware)
     {
-        $apiResponseAware
+        $mailClientResponseAware
             ->getMailApi()
-            ->handleClientResponse($apiResponseAware->getResponse());
+            ->handleClientResponse($mailClientResponseAware->getResponse());
     }
 
     /**
+     * Handle webhook calls from Mailjet
+     * @todo    Maybe separate it to MailjetWebhookHandler class
+     *          For now it is oke
      * @param Response $httpResponse
      */
-    public function handleWebhookResponse(Response $httpResponse)
+    public function handleWebhookRequest(Request $httpRequest)
     {
-        dd("@todo handle the webhook response of Mailjet");
+        dd("@todo handle the webhook request of Mailjet");
     }
 }

@@ -5,10 +5,10 @@ namespace App\Contracts;
 use App\Services\MailApis\ApiAbstract;
 
 /**
- * Interface ApiResponseAwareInterface
+ * Interface MailClientResponseAwareInterface
  * @package App\Contracts
  */
-interface ApiResponseAwareInterface
+interface MailClientResponseAwareInterface
 {
     /**
      * @return mixed

@@ -31,6 +31,6 @@ class LogMailResponseListener
      */
     public function handle(WebhookMailjetEvent $event)
     {
-        $this->handleResponseService->handleWebhookResponse($event);
+        $this->handleResponseService->handleWebhookRequest($event);
     }
 }

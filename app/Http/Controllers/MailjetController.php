@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\WebhookMailjetEvent;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
@@ -14,8 +15,8 @@ class MailjetController extends Controller
     /**
      * @param Response $response
      */
-    public function __invoke(Response $response)
+    public function __invoke(Request $request)
     {
-        event(new WebhookMailjetEvent($response));
+        event(new WebhookMailjetEvent($request));
     }
 }

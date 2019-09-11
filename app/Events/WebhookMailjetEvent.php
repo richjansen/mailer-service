@@ -2,9 +2,8 @@
 
 namespace App\Events;
 
-use App\Services\MailApis\ApiAbstract;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
 
 /**
  * Class MailSendEvent
@@ -13,20 +12,20 @@ use Illuminate\Http\Response;
 class WebhookMailjetEvent
 {
     /**
-     * @var Response
+     * @var Request
      */
-    private $response;
+    private $request;
 
-    public function __construct(Response $response)
+    public function __construct(Request $request)
     {
-        $this->response = $response;
+        $this->request = $request;
     }
 
     /**
-     * @return Response
+     * @return Request
      */
-    public function getResponse()
+    public function getRequest()
     {
-        return $this->response;
+        return $this->request;
     }
 }
