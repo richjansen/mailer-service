@@ -8,11 +8,11 @@ When hitting "/api/sendmail" a test e-mail will be send to the test user. This s
 first Sendgrid and if it fails, it will use the fallback service of Mailjet. 
 
 All e-mail sending actions are queued (with 10 secs delay). After receiving a response of the third
-party e-mail services a event is fired which will trigger a listener. Todo: This listener is calling a 
+party e-mail services a event is fired which will trigger a listener. This listener is calling a 
 a 'Log service' which will create an entry in the database (email, status, error, etc.). 
 
 After that a new event/listener is triggered for sending the http client a message so it can update it's
-user interface (new row in a table, green/red light for the e-mail status etc.)
+user interface (new row in a UI table, green/red light for the e-mail status etc.)
 
 Make sure you update your .env for the secrets.
 
@@ -23,15 +23,19 @@ Done:
 4. API Endpoint (JSON-RPC?)
 5. Service
 4. Job
-7. Event/listener
+7. Event/listener when third party emailservice is hit 
+8. Model and migrations
 
 Todo:
 1. Logging database
-2. UnitTest
-3. artisan command
+2. Event/listener for SendGrid responses (via the package)
+3. Webhook and event/listener for Mailjet response (via http)
+4. UnitTests
+5. artisan command
 
 Bonus todo:
-1. Client Vue app (new repos)
+2. Broadcasting events to client app
+1. Client Vue app (new repos). Using VueCLI, Axios, WebSockets, Bootstrap
 
 #### commands
 
