@@ -24,7 +24,7 @@ Done:
 5. Service
 4. Job
 7. Event/listener when third party emailservice is hit 
-8. Model and migrations
+8. Model and migrations 
 
 Todo:
 1. Logging database
@@ -37,7 +37,15 @@ Bonus todo:
 1. Broadcasting events to client app
 2. Client Vue app (new repos). Using VueCLI, Axios, WebSockets, Bootstrap
 
-#### commands
+#### Diagrams
+
+Model
+https://drive.google.com/file/d/1VNRha056ewmn1G4izcYdev6VIQvMlVW_/view?usp=sharing
+
+Flow
+https://drive.google.com/file/d/19NB1iOp0liVC9cUSNoisy0E3B6v6ltwu/view?usp=sharing
+
+#### Commands
 
 sudo docker-compose exec web php /srv/app/artisan
 
