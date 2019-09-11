@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\MailSendEvent;
+use App\Events\WebhookMailjetEvent;
 use App\Listeners\LogMailResponseListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -17,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         MailSendEvent::class => [
             LogMailResponseListener::class,
         ],
+        WebhookMailjetEvent::class => [
+
+        ]
     ];
 
     /**

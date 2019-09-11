@@ -22,7 +22,7 @@ class SendMailerService
      * @param int|null $apiIndex
      * @return mixed
      */
-    public function sendTestMail(?int $apiIndex = 0)
+    public function sendTestMail(int $apiIndex = 0)
     {
         $body = view('emails.test', ['name' => "Testje"])->toHtml();
 
@@ -42,6 +42,7 @@ class SendMailerService
      */
     private function getMailApi(int $key = 0): MailApiInterface
     {
+        // @todo check for key in array, otherwise throw MailServiceNotFoundException
         return $this->mailApis[$key];
     }
 }

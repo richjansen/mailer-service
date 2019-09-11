@@ -47,7 +47,7 @@ class SendMailerProvider extends ServiceProvider
         $this->app->singleton(SendMailerService::class, function ($app) {
             $sendMailerService = new SendMailerService(config('sendmailer')['mail-settings']);
             $sendMailerService
-                ->addApi($app->get(SendGridApi::class)) // primary api
+//                ->addApi($app->get(SendGridApi::class)) // primary api
                 ->addApi($app->get(MailjetApi::class))  // fallback api
             ;
             return $sendMailerService;

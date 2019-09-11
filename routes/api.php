@@ -14,3 +14,5 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/sendmail/{service?}', 'SendMailController');
+
+Route::post('/webhook/mailjet', 'MailjetController');

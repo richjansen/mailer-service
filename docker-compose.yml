@@ -26,8 +26,8 @@ services:
             - '33061:3306'
         expose:
             - '33061'
-        volumes:
-            - /home/samen/mysqldata:/var/lib/mysql
+#        volumes:
+#            - /home/samen/mysqldata:/var/lib/mysql
 #           MySql Workbench:
 #           Hostname: 127.0.0.1
 #           Port: 33601

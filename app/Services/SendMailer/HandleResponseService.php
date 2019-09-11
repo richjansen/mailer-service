@@ -4,6 +4,7 @@ namespace App\Services\SendMailer;
 
 use App\Contracts\ApiResponseAwareInterface;
 use App\Traits\MailSettingsTrait;
+use Illuminate\Http\Response;
 
 /**
  * Class HandleResponseService
@@ -19,5 +20,10 @@ class HandleResponseService
     public function handleResponse(ApiResponseAwareInterface $apiResponse)
     {
         $apiResponse->getMailApi()->handleResponse($apiResponse->getResponse());
+    }
+
+    public function handleWebhookResponse(Response $httpResponse)
+    {
+
     }
 }
