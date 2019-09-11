@@ -26,10 +26,12 @@ Done:
 7. Event/listener when third party emailservice is hit 
 8. Model and migrations 
 
-Todo:
+WIP:
 1. Logging database
 2. Event/listener for SendGrid responses (via the package)
 3. Webhook and event/listener for Mailjet response (via http)
+
+Todo:
 4. UnitTests
 5. artisan command
 
