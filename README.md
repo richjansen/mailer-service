@@ -32,12 +32,13 @@ WIP:
 3. Webhook and event/listener for Mailjet response (via http)
 
 Todo:
-4. UnitTests
-5. artisan command
+1. UnitTests
+2. artisan command
 
 Bonus todo:
-1. Broadcasting events to client app
-2. Client Vue app (new repos). Using VueCLI, Axios, WebSockets, Bootstrap
+1. Api endpoint for reading mail statusses etc.
+2. Broadcasting events to client app
+3. Client Vue app (new repos). Using VueCLI, Axios, WebSockets, Bootstrap
 
 #### Diagrams
 
