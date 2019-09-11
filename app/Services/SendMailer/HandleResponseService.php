@@ -17,13 +17,18 @@ class HandleResponseService
     /**
      * @param ApiResponseAwareInterface $apiResponse
      */
-    public function handleResponse(ApiResponseAwareInterface $apiResponse)
+    public function handleResponse(ApiResponseAwareInterface $apiResponseAware)
     {
-        $apiResponse->getMailApi()->handleResponse($apiResponse->getResponse());
+        $apiResponseAware
+            ->getMailApi()
+            ->handleClientResponse($apiResponseAware->getResponse());
     }
 
+    /**
+     * @param Response $httpResponse
+     */
     public function handleWebhookResponse(Response $httpResponse)
     {
-
+        dd("@todo handle the webhook response of Mailjet");
     }
 }

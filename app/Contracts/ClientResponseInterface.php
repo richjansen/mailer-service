@@ -6,11 +6,11 @@ namespace App\Contracts;
  * Interface MailApiInterface
  * @package App\Contracts
  */
-interface MailApiInterface
+interface ClientResponseInterface
 {
     /**
      * @param $response
      * @return mixed
      */
-    public function handleResponse($response);
+    public function handleClientResponse($response);
 }

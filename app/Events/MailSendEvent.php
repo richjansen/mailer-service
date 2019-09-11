@@ -3,7 +3,6 @@
 namespace App\Events;
 
 use App\Contracts\ApiResponseAwareInterface;
-use App\Contracts\MailApiInterface;
 use App\Services\MailApis\ApiAbstract;
 use Mailjet\Response;
 
@@ -25,7 +24,7 @@ class MailSendEvent implements ApiResponseAwareInterface
 
     /**
      * MailSendEvent constructor.
-     * @param $response
+     * @param $response mailjet or sendgrid response
      * @param ApiAbstract $mailApi
      */
     public function __construct($response, ApiAbstract $mailApi)

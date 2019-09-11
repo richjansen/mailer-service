@@ -2,7 +2,7 @@
 
 namespace App\Services\SendMailer;
 
-use App\Contracts\MailApiInterface;
+use App\Contracts\ClientResponseInterface;
 use App\Events\MailSendEvent;
 use App\Exceptions\ServiceOfflineException;
 use App\Traits\MailApisTrait;
@@ -16,33 +16,51 @@ class SendMailerService
 {
     use MailSettingsTrait;
 
-    use MailApisTrait;
+    /**
+     * @var array
+     */
+    private $mailClients = [];
+
 
     /**
-     * @param int|null $apiIndex
+     * @param int|null $clientIndex
      * @return mixed
      */
-    public function sendTestMail(int $apiIndex = 0)
+    public function sendTestMail(int $clientIndex = 0)
     {
         $body = view('emails.test', ['name' => "Testje"])->toHtml();
 
         try {
-            $mailApi = $this->getMailApi($apiIndex);
-            $response = $mailApi->send($body);
+            $mailClient = $this->getMailClient($clientIndex);
+            $response   = $mailClient->send($body);
         } catch (ServiceOfflineException $e) {
-            return $this->sendTestMail(++$apiIndex);
+            return $this->sendTestMail(++$clientIndex);
         }
 
-        event(new MailSendEvent($response, $mailApi));
+        event(new MailSendEvent($response, $mailClient));
     }
 
     /**
      * @param int $key
      * @return mixed
      */
-    private function getMailApi(int $key = 0): MailApiInterface
+    private function getMailClient(int $key = 0): ClientResponseInterface
     {
         // @todo check for key in array, otherwise throw MailServiceNotFoundException
-        return $this->mailApis[$key];
+        return $this->mailClients[$key];
+    }
+
+    /**
+     * @param ClientResponseInterface $mailApi
+     * @return $this
+     */
+    public function addClient(ClientResponseInterface $mailClient): self
+    {
+        $mailClient->setMailSettings($this->mailSettings);
+
+        // @todo Make sure there are no duplicate apis
+        $this->mailClients[] = $mailClient;
+
+        return $this;
     }
 }

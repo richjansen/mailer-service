@@ -2,7 +2,7 @@
 
 namespace App\Services\MailApis;
 
-use App\Contracts\MailApiInterface;
+use App\Contracts\ClientResponseInterface;
 use App\Exceptions\ServiceOfflineException;
 use Mailjet\{
     Resources,
@@ -15,7 +15,7 @@ use Exception;
  * Class Mailjet
  * @package App\Services\MailApis
  */
-class MailjetApi extends ApiAbstract implements MailApiInterface
+class MailjetApi extends ApiAbstract implements ClientResponseInterface
 {
     /**
      * MailjetApi constructor.
@@ -73,7 +73,7 @@ class MailjetApi extends ApiAbstract implements MailApiInterface
     /**
      * @param $response
      */
-    public function handleResponse($response)
+    public function handleClientResponse($response)
     {
         dd("Mailjet handle response");
     }

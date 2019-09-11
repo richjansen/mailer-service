@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\WebhookMailjetEvent;
-use App\Jobs\SendEmailJob;
-use App\Services\SendMailer\SendMailerService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
@@ -15,11 +12,9 @@ use Illuminate\Http\Response;
 class MailjetController extends Controller
 {
     /**
-     * @param Request $request
-     * @param SendMailerService $sendMailerService
-     * @return string
+     * @param Response $response
      */
-    public function __invoke(Response $response, SendMailerService $sendMailerService)
+    public function __invoke(Response $response)
     {
         event(new WebhookMailjetEvent($response));
     }

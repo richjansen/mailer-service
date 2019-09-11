@@ -2,7 +2,7 @@
 
 namespace App\Services\MailApis;
 
-use App\Contracts\MailApiInterface;
+use App\Contracts\ClientResponseInterface;
 use App\Exceptions\ServiceOfflineException;
 use SendGrid\Mail\Mail;
 use SendGrid;
@@ -12,7 +12,7 @@ use Exception;
  * Class SendGridApi
  * @package App\Services\MailApis
  */
-class SendGridApi extends ApiAbstract implements MailApiInterface
+class SendGridApi extends ApiAbstract implements ClientResponseInterface
 {
     /**
      * SendGridApi constructor.
@@ -64,7 +64,7 @@ class SendGridApi extends ApiAbstract implements MailApiInterface
     /**
      * @param $response
      */
-    public function handleResponse($response)
+    public function handleClientResponse($response)
     {
         dd("SendGrid handle response");
     }
