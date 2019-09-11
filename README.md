@@ -5,7 +5,7 @@ Microservice (Laravel) for sending mails
 #### Mailer API
 
 When hitting "/api/sendmail" a test e-mail will be send to the test user. This service will use 
-first Sendgrid and if it fails, it will use the fallback service of Mailjet. 
+first SendGrid and if it fails, it will use the fallback service of Mailjet. 
 
 All e-mail sending actions are queued (with 10 secs delay). After receiving a response of the third
 party e-mail services a event is fired which will trigger a listener. This listener is calling a 
@@ -47,7 +47,9 @@ https://drive.google.com/file/d/19NB1iOp0liVC9cUSNoisy0E3B6v6ltwu/view?usp=shari
 
 #### Commands
 
+sudo docker-compose run composer install
+
 sudo docker-compose exec web php /srv/app/artisan
 
-sudo docker-compose run composer require "swiftmailer/swiftmailer:^6.0"
+
 
