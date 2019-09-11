@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Events\WebhookMailjetEvent;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 /**
  * Class SendMailController
@@ -13,7 +12,7 @@ use Illuminate\Http\Response;
 class MailjetController extends Controller
 {
     /**
-     * @param Response $response
+     * @param Request $request
      */
     public function __invoke(Request $request)
     {

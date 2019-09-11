@@ -1,1 +1,1 @@
-Test email
+<p>Test email</p>

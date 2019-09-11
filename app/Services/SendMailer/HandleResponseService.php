@@ -16,6 +16,7 @@ class HandleResponseService
     use MailSettingsTrait;
 
     /**
+     * Log when the SendMailer service had send an email to one of the mail apis
      * @param MailClientResponseAwareInterface $mailClientResponseAware
      */
     public function handleResponse(MailClientResponseAwareInterface $mailClientResponseAware)

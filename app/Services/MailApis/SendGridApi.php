@@ -3,8 +3,11 @@
 namespace App\Services\MailApis;
 
 use App\Contracts\ClientResponseInterface;
+use App\Contracts\MailModelInterface;
+use App\Events\MailHandledEvent;
 use App\Exceptions\ServiceOfflineException;
-use SendGrid\Mail\Mail;
+use App\Repositories\MailRepository;
+use SendGrid\Mail\Mail as SendGridMail;
 use SendGrid;
 use Exception;
 
@@ -24,49 +27,60 @@ class SendGridApi extends ApiAbstract implements ClientResponseInterface
     }
 
     /**
-     * @param $htmlBody
-     * @return Mail
+     * @param MailModelInterface $mailModel
+     * @return SendGridMail
      * @throws SendGrid\Mail\TypeException
      */
-    protected function createMail($htmlBody)
+    private function createMail(MailModelInterface $mailModel)
     {
-        $email = new Mail();
+        $email = new SendGridMail();
+
+//        $email->setFrom($this->mailSettings['from'], $this->mailSettings['name']);
+//        $email->setSubject($this->mailSettings['subject'] . " SendGrid");
+//        $email->addTo(env('TEST_EMAIL'), "Example User");
+//        $email->addContent($this->mailSettings['content-type'], $htmlBody);
 
         $email->setFrom($this->mailSettings['from'], $this->mailSettings['name']);
-        $email->setSubject($this->mailSettings['subject'] . " SendGrid");
+        $email->setSubject($mailModel->getSubject());
         $email->addTo(env('TEST_EMAIL'), "Example User");
-        $email->addContent($this->mailSettings['content-type'], $htmlBody);
+        $email->addContent($this->mailSettings['content-type'], $mailModel->getBody());
 
         return $email;
     }
 
     /**
      * @see https://app.sendgrid.com/guide/integrate/langs/php
-     * @param $htmlBody
+     * @param MailModelInterface $mailModel
      * @return SendGrid\Response
      * @throws SendGrid\Mail\TypeException
      * @throws ServiceOfflineException
      */
-    public function send($htmlBody)
+    public function send(MailModelInterface $mailModel)
     {
         // test
 //        throw new ServiceOfflineException(new Exception('offline'));
 
-        $email = $this->createMail($htmlBody);
+        $sendGridEmail = $this->createMail($mailModel);
 
         try {
-            return $this->mailerService->send($email);
+            $serviceResponse = $this->mailerService->send($sendGridEmail);
+            // @todo remove the resolve() call. Use injection or setter
+            event(new MailHandledEvent($mailModel, resolve(MailRepository::class)));
+            return $serviceResponse;
         } catch (Exception $e) {
             throw new ServiceOfflineException($e);
         }
     }
 
     /**
+     * The SendMailer had send an email away. Now log that
      * @param $response
      */
     public function handleClientResponse($response)
     {
-        dd($response);
+        if (202 === $response->statusCode()) {
+
+        }
         dd("SendGrid handle response");
     }
 }

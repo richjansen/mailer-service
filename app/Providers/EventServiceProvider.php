@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Events\MailSendEvent;
+use App\Events\{MailHandledEvent, MailSendEvent};
 use App\Events\WebhookMailjetEvent;
-use App\Listeners\LogMailResponseListener;
+use App\Listeners\{LogMailResponseListener, SaveMailListener};
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -17,6 +17,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         MailSendEvent::class => [
             LogMailResponseListener::class,
+        ],
+        MailHandledEvent::class => [
+            SaveMailListener::class,
         ],
 //        WebhookMailjetEvent::class => [
 //

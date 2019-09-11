@@ -3,7 +3,6 @@
 namespace App\Events;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 /**
  * Class MailSendEvent
@@ -16,6 +15,10 @@ class WebhookMailjetEvent
      */
     private $request;
 
+    /**
+     * WebhookMailjetEvent constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;

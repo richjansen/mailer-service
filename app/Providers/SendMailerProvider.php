@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\MailRepository;
+use App\Repositories\RecipientRepository;
 use App\Services\MailApis\Mailjet;
 use App\Services\MailApis\MailjetApi;
 use App\Services\MailApis\SendGridApi;
@@ -43,10 +45,23 @@ class SendMailerProvider extends ServiceProvider
             );
         });
 
+        // Repositories
+        $this->app->singleton(MailRepository::class, function ($app) {
+            return new MailRepository();
+        });
+
+        $this->app->singleton(RecipientRepository::class, function ($app) {
+            return new RecipientRepository();
+        });
+
         // SendMailerService
         $this->app->singleton(SendMailerService::class, function ($app) {
-            $sendMailerService = new SendMailerService(config('sendmailer')['mail-settings']);
+            $sendMailerService = new SendMailerService(
+                $app->get(MailRepository::class),
+                $app->get(RecipientRepository::class)
+            );
             $sendMailerService
+                ->setMailSettings(config('sendmailer')['mail-settings'])
                 ->addClient($app->get(SendGridApi::class)) // primary api
 //                ->addClient($app->get(MailjetApi::class))  // fallback api
             ;
@@ -55,7 +70,8 @@ class SendMailerProvider extends ServiceProvider
 
         // HandleResponseService
         $this->app->singleton(HandleResponseService::class, function ($app) {
-            $handleResponseService = new HandleResponseService(config('sendmailer')['mail-settings']);
+            $handleResponseService = new HandleResponseService();
+            $handleResponseService->setMailSettings(config('sendmailer')['mail-settings']);
             return $handleResponseService;
         });
     }

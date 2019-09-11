@@ -10,11 +10,13 @@ trait MailSettingsTrait
     private $mailSettings;
 
     /**
-     * SendMailerService constructor.
      * @param array $mailSettings
+     * @return MailSettingsTrait
      */
-    public function __construct(array $mailSettings)
+    public function setMailSettings(array $mailSettings): self
     {
         $this->mailSettings = $mailSettings;
+
+        return $this;
     }
 }

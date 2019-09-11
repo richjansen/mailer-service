@@ -5,6 +5,8 @@ namespace App\Services\SendMailer;
 use App\Contracts\ClientResponseInterface;
 use App\Events\MailSendEvent;
 use App\Exceptions\ServiceOfflineException;
+use App\Repositories\MailRepository;
+use App\Repositories\RecipientRepository;
 use App\Traits\MailApisTrait;
 use App\Traits\MailSettingsTrait;
 
@@ -21,6 +23,26 @@ class SendMailerService
      */
     private $mailClients = [];
 
+    /**
+     * @var MailRepository
+     */
+    private $mailRepository;
+
+    /**
+     * @var RecipientRepository
+     */
+    private $recipientRepository;
+
+    /**
+     * SendMailerService constructor.
+     * @param MailRepository $mailRepository
+     * @param RecipientRepository $recipientRepository
+     */
+    public function __construct(MailRepository $mailRepository, RecipientRepository $recipientRepository)
+    {
+        $this->mailRepository = $mailRepository;
+        $this->recipientRepository = $recipientRepository;
+    }
 
     /**
      * @param int|null $clientIndex
@@ -32,7 +54,12 @@ class SendMailerService
 
         try {
             $mailClient = $this->getMailClient($clientIndex);
-            $response   = $mailClient->send($body);
+            $subject    = $this->mailSettings['subject'] . " SendGrid and a repos";
+            $recipient  = $this->recipientRepository->findOrCreate(env('TEST_EMAIL'), "Example User");
+            $this->recipientRepository->save($recipient);
+
+            $mail       = $this->mailRepository->create($body, $subject, $recipient);
+            $response   = $mailClient->send($mail);
         } catch (ServiceOfflineException $e) {
             return $this->sendTestMail(++$clientIndex);
         }
@@ -51,10 +78,10 @@ class SendMailerService
     }
 
     /**
-     * @param ClientResponseInterface $mailApi
+     * @param ClientResponseInterface $mailClient
      * @return $this
      */
-    public function addClient(ClientResponseInterface $mailClient): self
+    public function addClient(ClientResponseInterface $mailClient): SendMailerService
     {
         $mailClient->setMailSettings($this->mailSettings);
 
