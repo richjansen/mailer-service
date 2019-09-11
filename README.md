@@ -34,8 +34,8 @@ Todo:
 5. artisan command
 
 Bonus todo:
-2. Broadcasting events to client app
-1. Client Vue app (new repos). Using VueCLI, Axios, WebSockets, Bootstrap
+1. Broadcasting events to client app
+2. Client Vue app (new repos). Using VueCLI, Axios, WebSockets, Bootstrap
 
 #### commands
 
