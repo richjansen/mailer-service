@@ -26,16 +26,19 @@ Done:
 7. Event/listener when third party emailservice is hit 
 8. Model and migrations 
 
-Todo:
+WIP:
 1. Logging database
 2. Event/listener for SendGrid responses (via the package)
 3. Webhook and event/listener for Mailjet response (via http)
-4. UnitTests
-5. artisan command
+
+Todo:
+1. UnitTests
+2. artisan command
 
 Bonus todo:
-1. Broadcasting events to client app
-2. Client Vue app (new repos). Using VueCLI, Axios, WebSockets, Bootstrap
+1. Api endpoint for reading mail statusses etc.
+2. Broadcasting events to client app
+3. Client Vue app (new repos). Using VueCLI, Axios, WebSockets, Bootstrap
 
 #### Diagrams
 
