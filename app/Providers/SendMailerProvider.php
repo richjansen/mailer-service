@@ -63,7 +63,7 @@ class SendMailerProvider extends ServiceProvider
             $sendMailerService
                 ->setMailSettings(config('sendmailer')['mail-settings'])
                 ->addClient($app->get(SendGridApi::class)) // primary api
-//                ->addClient($app->get(MailjetApi::class))  // fallback api
+                ->addClient($app->get(MailjetApi::class))  // fallback api
             ;
             return $sendMailerService;
         });

@@ -2,9 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Contracts\MailClientResponseAwareInterface;
 use App\Repositories\MailRepository;
-use App\Services\SendMailer\HandleResponseService;
 
 /**
  * Class SaveMailListener

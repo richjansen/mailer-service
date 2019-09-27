@@ -19,5 +19,4 @@ interface MailModelInterface
      * @return MailModelInterface
      */
     public function setSubject(string $subject): MailModelInterface;
-
 }

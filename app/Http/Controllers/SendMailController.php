@@ -19,10 +19,12 @@ class SendMailController extends Controller
      */
     public function __invoke(SendMailerService $sendMailerService, ?string $service = null)
     {
-        //        SendEmailJob
-//            ::dispatch($mailApi)
-//            ->delay(now()->addSeconds(10))
-//        ;
-        $sendMailerService->sendTestMail();
+        SendEmailJob
+            ::dispatch()
+            ->delay(now()->addSeconds(10))
+        ;
+
+        // test
+        //$sendMailerService->sendTestMail();
     }
 }

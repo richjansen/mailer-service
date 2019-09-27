@@ -13,18 +13,6 @@ class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $mailApi;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct($mailApi)
-    {
-        $this->mailApi = $mailApi;
-    }
-
     /**
      * Execute the job.
      *
@@ -32,6 +20,6 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle(SendMailerService $sendMailerService)
     {
-        $sendMailerService->sendTestMail($this->mailApi);
+        $sendMailerService->sendTestMail();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use App\Contracts\MailClientResponseAwareInterface;
 use App\Events\WebhookMailjetEvent;
 use App\Services\SendMailer\HandleResponseService;
 
@@ -27,7 +26,7 @@ class LogWebhookResponseListener
     }
 
     /**
-     * @param MailClientResponseAwareInterface $event
+     * @param WebhookMailjetEvent $event
      */
     public function handle(WebhookMailjetEvent $event)
     {
